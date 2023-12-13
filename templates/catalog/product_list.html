@@ -1,0 +1,83 @@
+{% extends "app.html" %}
+
+{% block title %}Products{% endblock %}
+
+{% block heading %}
+    <div class="bg-primary mb-4">
+        <div class="container py-4">
+        <h3 class="text-white mt-2">Products</h3>
+        <!-- Breadcrumb -->
+        <nav class="d-flex mb-2">
+            <h6 class="mb-0">
+            <a href="{% url "main:home" %}" class="text-white-50">Home</a>
+            <span class="text-white-50 mx-2"> > </span>
+            <a href="" class="text-white"><u>Products</u></a>
+            </h6>
+        </nav>
+        <!-- Breadcrumb -->
+        </div>
+    </div>
+    <!-- Heading -->
+{% endblock heading %}
+
+{% block content %}
+    <section class="">
+        <div class="container">
+            <div class="row">
+                
+                {% include "partials/sidebar.html" %}
+                
+                <!-- content -->
+                <div class="col-lg-9">
+                    <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+                        <strong class="d-block py-2">32 Items found </strong>
+                        <div class="ms-auto">
+                            <select class="form-select d-inline-block w-auto border pt-1">
+                                <option value="0">Best match</option>
+                                <option value="1">Recommended</option>
+                                <option value="2">High rated</option>
+                                <option value="3">Randomly</option>
+                            </select>
+                            <div class="btn-group shadow-0 border">
+                                <a href="#" class="btn btn-light" title="List view">
+                                    <i class="fa fa-bars fa-lg"></i>
+                                </a>
+                                <a href="#" class="btn btn-light active" title="Grid view">
+                                    <i class="fa fa-th fa-lg"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </header>
+
+                    {% for product in product_list %}
+                        {% include "components/product_as_list.html" with product=product %}
+                    {% endfor %}
+
+                    <hr />
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            <li class="page-item"><a class="page-link" href="#">5</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- Pagination -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

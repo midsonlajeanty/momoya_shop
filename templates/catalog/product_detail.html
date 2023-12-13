@@ -1,0 +1,123 @@
+{% extends "app.html" %}
+
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block heading %}
+    <div class="bg-primary mb-4">
+        <div class="container py-4">
+        <h3 class="text-white mt-2">{{ product.name }}</h3>
+        <!-- Breadcrumb -->
+        <nav class="d-flex mb-2">
+                <h6 class="mb-0">
+                <a href="{% url "main:home" %}" class="text-white-50">Home</a>
+                <span class="text-white-50 mx-2"> > </span>
+                <a href="{% url "catalog:product_list" %}" class="text-white-50"><u>Products</u></a>
+                <span class="text-white-50 mx-2"> > </span>
+                <a class="text-white"><u>{{ product.name }}</u></a>
+            </h6>
+        </nav>
+        <!-- Breadcrumb -->
+        </div>
+    </div>
+    <!-- Heading -->
+{% endblock heading %}
+
+{% block content %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row gx-5">
+                <aside class="col-lg-7">
+                    <div class="px-5 mb-3"> 
+                        <a data-fslightbox="mygalley" target="_blank" data-type="image" href="{{ product.image.url }}">
+                            <img class="img-fluid"  src="{{ product.image.url }}" />
+                        </a>
+                    </div>
+
+                    <div class="row gx-3 px-5 my-5">
+                        {% for image in product.images.all %}
+                            <div class="col-md-3">
+                                <a data-fslightbox="mygalley" class="img-fluid" target="_blank" data-type="image" href="{{ image.source.url }}">
+                                    <img class="img-fluid" src="{{ image.source.url }}" />
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </aside>
+
+                <main class="col-lg-5">
+                    <div class="ps-lg-3">
+                        <h4 class="title text-dark">
+                            {{ product.name }}
+                        </h4>
+                        <div class="d-flex flex-row my-3">
+                            <div class="text-warning mb-1 me-2">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="ms-1">
+                                    4.5
+                                </span>
+                            </div>
+                            <span class="text-muted">
+                                <i class="fas fa-shopping-basket fa-sm mx-1"></i>
+                            </span>
+                            {% if product.available  %}
+                                <span class="text-success ms-2">In stock</span>
+                            {% else %}
+                                <span class="text-warning ms-2">Out of stock</span>
+                            {% endif %}
+                        </div>
+    
+                        <div class="mb-3">
+                            <span class="h5">{{ product.price }}</span>
+                            <span class="text-muted">/per unit</span>
+                        </div>
+    
+                        <p>{{ product.description }} </p>
+    
+                        <div class="row">
+                            <dt class="col-3">Type:</dt>
+                            <dd class="col-9">Regular</dd>
+    
+                            <dt class="col-3">Color</dt>
+                            <dd class="col-9">Brown</dd>
+    
+                            <dt class="col-3">Material</dt>
+                            <dd class="col-9">Cotton, Jeans</dd>
+    
+                            <dt class="col-3">Brand</dt>
+                            <dd class="col-9">Reebook</dd>
+                        </div>
+    
+                        <hr />
+                        
+                        <form action="{% url "sales:create_order" %}" method="post">
+                            {% csrf_token %}
+                            
+                            <input type="hidden" name="product_id" value="{{ product.pk }}">
+
+                            <div class="row g-3 align-items-center">
+                                <div class="col-auto">
+                                    <label for="quantity" class="col-form-label">Quantity</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input type="number" id="quantity" class="form-control" value="1" name="quantity" min="1">
+                                </div>
+                            </div>
+
+                            <div class="form-group mt-3">
+                                <button type='submit' class="btn btn-primary shadow-0 btn-block btn-lg">
+                                    <i class="me-1 fa fa-shopping-basket"></i> 
+                                    Order now
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+{% endblock %}

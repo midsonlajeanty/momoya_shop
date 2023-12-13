@@ -1,0 +1,16 @@
+<!-- Products -->
+<section>
+    <div class="container my-5">
+        <header class="mb-4">
+            <h3>New products</h3>
+        </header>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-lg-3 col-md-6 col-sm-6 d-flex">
+                    {% include "components/product_as_grid.html" with product=product %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<!-- Products -->

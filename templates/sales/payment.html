@@ -1,0 +1,85 @@
+{% extends "app.html" %}
+
+{% block title %}Payment{% endblock title %}
+
+{% block heading %}
+    <div class="bg-primary mb-4">
+        <div class="container py-4">
+        <h3 class="text-white mt-2">Payment</h3>
+        <!-- Breadcrumb -->
+        <nav class="d-flex mb-2">
+            <h6 class="mb-0">
+                <a href="{% url "main:home" %}" class="text-white-50">Home</a>
+                <span class="text-white-50 mx-2"> > </span>
+                <a class="text-white"><u>Payment</u></a>
+            </h6>
+        </nav>
+        <!-- Breadcrumb -->
+        </div>
+    </div>
+    <!-- Heading -->
+{% endblock heading %}
+
+{% block content %}
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 mb-4">
+                    <!-- Payment -->
+                    <div class="card shadow-0 border">
+                        <div class="p-4">
+                            <h5 class="text-dark mb-4">Item(s)</h5>
+
+                            {% for item in order.items.all %}
+                                {% include "components/cart_item.html" with item=item %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- Payment -->
+                </div>
+                <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
+                    <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+                        <h6 class="mb-3">Summary : #{{ order.reference }}</h6>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2">HTG {{ order.total }}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Discount:</p>
+                            <p class="mb-2 text-danger">- HTG 0</p>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Shipping cost:</p>
+                            <p class="mb-2">+ HTG {{ order.shipping.cost }}</p>
+                        </div>
+
+                        <hr />
+                        <div class="d-flex justify-content-between">
+                            <p class="mb-2">Total price:</p>
+                            <p class="mb-2 fw-bold">HTG {{ order.total }}</p>
+                        </div>
+
+                        <div class="input-group mt-3 mb-4">
+                            <input type="text" class="form-control border" name="" placeholder="Promo code" />
+                            <button class="btn btn-light text-primary border">Apply</button>
+                        </div>
+
+                        <hr />
+                        <h6>Payment Method</h6>
+                        
+                        <div class="row">
+                            {% for method in payment_methods %}
+                                <div class="col-12">
+                                    <a href="{% url "sales:process_payment" pk=order.pk reference=order.reference alias=method.alias %}" class="btn btn-danger btn-block btn-lg">Pay With Moncash</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

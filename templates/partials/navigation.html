@@ -1,0 +1,34 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <!-- Container wrapper -->
+    <div class="container justify-content-center justify-content-md-between">
+        <!-- Toggle button -->
+        <button class="navbar-toggler border py-2 text-dark" type="button" data-mdb-toggle="collapse"
+                data-mdb-target="#navbarLeftAlignExample" aria-controls="navbarLeftAlignExample" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Collapsible wrapper -->
+        <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" aria-current="page" href="{% url "main:home" %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url "catalog:product_list" %}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{% url "main:about" %}">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Contact Us</a>
+                </li>
+                </ul>
+                <!-- Left links -->
+        </div>
+    </div>
+    <!-- Container wrapper -->
+</nav>
+<!-- Navbar -->
